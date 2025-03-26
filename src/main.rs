@@ -11,7 +11,18 @@ This is going to be my new habit tracker.
     println!("{}", chrono::offset::Local::now());
     // code to do the things here
 
+    let mut habits = Vec::new();
+    let mut habit: Option<Habit> = create_habit();
+    if let Some(habit) = habit {
+        habits.push(habit);
+    }
 
+    habit = create_habit();
+    if let Some(habit) = habit {
+        habits.push(habit)
+    }
+
+    list_habits(habits)
 }
 
 
@@ -36,6 +47,8 @@ fn create_habit() -> Option<Habit> {
         dates: vec![],
     };
 
+    println!("New habit name: ");
+
     io::stdin()
         .read_line(&mut habit.name)
         .expect("Failed to read line");
@@ -44,6 +57,16 @@ fn create_habit() -> Option<Habit> {
     if habit.name.is_empty() {
         return None;
     }
+
+    habit.name = habit.name.trim().to_string();
+
+    println!("New habit \"{}\" created!", habit.name);
+
     Some(habit)
 }
 
+fn list_habits(habits: Vec<Habit>) {
+    for habit in habits.iter() {
+        println!("Habit: {}", habit.name)
+    }
+}
