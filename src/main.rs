@@ -53,7 +53,7 @@ fn create_habit() -> Option<Habit> {
         .read_line(&mut habit.name)
         .expect("Failed to read line");
 
-    // if habit.name is empty, return an error
+    // if habit.name is empty, return none
     if habit.name.is_empty() {
         return None;
     }
